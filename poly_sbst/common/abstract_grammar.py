@@ -61,7 +61,10 @@ class AbstractGrammar:
             else:
                 expansion_trials += 1
                 if expansion_trials >= max_expansion_trials:
-                    print("Cannot expand " + repr(term))
+                    if log:
+                        print("Cannot expand " + repr(term) + " - pruning symbol " + symbol_to_expand)
+                    term = term.replace(symbol_to_expand, "", 1)
+                    expansion_trials = 0
 
         return term
 
